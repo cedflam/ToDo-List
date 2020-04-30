@@ -1,0 +1,39 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">ToDoList</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item float-right">
+                <a class="nav-link " href="#">Tasks</a>
+            </li>
+
+            {% if app.user.roles is defined and app.user.roles == ["ROLE_ADMIN"] %}
+                <li class="nav-item float-right">
+                    <a class="nav-link " href="#">Administration</a>
+                </li>
+            {% endif %}
+
+        </ul>
+
+        {% if not app.user %}
+            <div class="nav-item ">
+                <a type="button" data-backdrop="static" class=" btn btn-sm btn-primary text-white" data-toggle="modal"
+                   data-target="#connexion">
+                    Connexion
+                </a>
+            </div>
+        {% else %}
+            <div class="nav-item">
+                <a href="{{ path('account_logout') }}" class="btn btn-sm btn-danger">Déconnexion</a>
+            </div>
+        {% endif %}
+
+    </div>
+</nav>
+{% if hasError is defined and hasError %}
+    <div class="alert alert-danger container mt-2">Le nom d'utilisateur ou le mot de passe est invalide !</div>
+{% endif %}

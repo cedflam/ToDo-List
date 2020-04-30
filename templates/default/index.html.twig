@@ -3,5 +3,54 @@
 {% block title %}HomePage{% endblock %}
 
 {% block body %}
+    <div class="container">
+        <div class="jumbotron mt-5">
+            <h1 class="display-4">ToDo-List </h1>
+            <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias blanditiis eligendi
+                error facilis iure nihil numquam possimus voluptates. A autem cum dolor et eveniet, ex nobis placeat
+                quas sint veritatis.</p>
+            <hr class="my-4">
+            <p>It uses utility classes for typography and spacing to space content out within the larger
+                container.</p>
+            <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+        </div>
 
+        <!-- modal -->
+        <div class="modal fade" id="connexion" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered " role="document">
+                <div class="modal-content bg-light">
+                    <div class="modal-header bg-secondary text-white ">
+                        <h3 class="modal-title " id="exampleModalCenterTitle">Connexion</h3>
+                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    {% if hasError is defined and hasError %}
+                        <div class="alert alert-danger">Le nom d'utilisateur ou le mot de passe est invalide !</div>
+                    {% endif %}
+                    <div class="modal-body">
+                        <form action="{{ path('account_login') }}" method="post" class="form-group">
+                            <input type="text" name="_username" class="form-control mt-3"
+                                   placeholder="Entrez votre email..."
+                                    {% if username is defined and username%}
+                                   value="{{ username }}"
+                                   {% endif %}
+                                   required>
+                            <input type="password" name="_password" class="form-control mt-3"
+                                   placeholder="Entrez votre mot de passe..." required>
+                            <input type="submit" class="btn btn-primary mt-3 " value="Connexion">
+                        </form>
+                    </div>
+                    <div>
+                        <div class="modal-footer container-fluid ">
+                            <p class="mx-auto d-block">&copyToDo-List</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
 {% endblock %}
