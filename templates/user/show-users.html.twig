@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Liste Utilisateurs {% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-2 mb-5">Liste des utilisateurs</h2>
+
+        <div class="col-4">
+            <input name="search" type="text" class="form-control mb-2" placeholder="Rechercher...">
+        </div>
+
+        <table class="table table-striped ">
+            <thead>
+            <tr>
+                <th class="text-center" scope="col">id User</th>
+                <th class="text-center" scope="col">Username</th>
+                <th class="text-center" scope="col">Email</th>
+                <th class="text-center" scope="col">Rôle</th>
+                <th class="text-center" scope="col">Modifier</th>
+                <th class="text-center" scope="col">Supprimer</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <th class="text-center" scope="row">{{ user.id }}</th>
+                    <td class="text-center">{{ user.username }}</td>
+                    <td class="text-center">{{ user.email }}</td>
+                    <td class="text-center">{{ user.role }}</td>
+                    <td class="text-center">
+                        <a href="{{ path('user_edit', {'id': user.id}) }}" class="btn btn-sm btn-primary">
+                            <i class="fas fa-pen"></i>
+                        </a>
+                    </td>
+                    <td class="text-center">
+                        <a href="{{ path('user_delete', {'id': user.id}) }}" class="btn btn-sm btn-danger">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </td>
+
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+
+    </div>
+
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/searchUser.js') }}" ></script>
+{% endblock %}

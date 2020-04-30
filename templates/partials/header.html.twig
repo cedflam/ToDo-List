@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">ToDoList</a>
+    <a class="navbar-brand" href="{{ path('homepage') }}">ToDo-List</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -7,14 +7,27 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item float-right">
-                <a class="nav-link " href="#">Tâches</a>
-            </li>
 
             {% if app.user.roles is defined and app.user.roles == ["ROLE_ADMIN"] %}
                 <li class="nav-item float-right">
-                    <a class="nav-link " href="{{ path('user_add') }}">Ajouter un Utilisateur</a>
+                    <a class="nav-link " href="{{ path('user_create') }}">Ajout User</a>
                 </li>
+                <li class="nav-item float-right">
+                    <a class="nav-link " href="{{ path('users_show') }}">Liste Users</a>
+                </li>
+            {% endif %}
+
+            <li class="nav-item float-right">
+                <a class="nav-link " href="{{ path('task_user_list') }}">Mes tâches</a>
+            </li>
+            <li class="nav-item float-right">
+                <a class="nav-link " href="{{ path('task_done_list') }}">Tâches réalisées</a>
+            </li>
+            <li class="nav-item float-right">
+                <a class="nav-link " href="{{ path('task_list') }}">Toutes les tâches</a>
+            </li>
+            {% if app.user %}
+
             {% endif %}
 
         </ul>
@@ -37,3 +50,12 @@
 {% if hasError is defined and hasError %}
     <div class="alert alert-danger container mt-2">Le nom d'utilisateur ou le mot de passe est invalide !</div>
 {% endif %}
+{% for label,messages in app.flashes %}
+    <div class="container  text-center">
+        <div class="p-3 alert-{{label}}">
+            {% for message in messages %}
+            {{message | raw}}
+            {% endfor %}
+        </div>
+    </div>
+{% endfor %}

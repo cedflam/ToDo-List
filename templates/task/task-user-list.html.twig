@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tâches{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <h2 class="text-center mt-2 mb-2"> Mes tâches </h2>
+
+        {% if app.user.tasks.count == 0 %}
+            <div class="alert alert-info">
+                <p class="text-center">Vous n'avez pas encore de tâches à vous ! </p>
+            </div>
+        {% endif %}
+
+        <div class="row">
+            {% for task in tasks %}
+                <div class="col-4 mt-3">
+                    <div class="card">
+                        <div class="card-header text-center">
+                            <div class="container-fluid">
+                                {% if task.isDone %}
+                                    <i class="fas fa-check float-right"></i>
+                                    {% if app.user == task.user %}
+                                        <a href=""><i class="fas fa-pen float-right mr-2"></i></a>
+                                    {% endif %}
+                                {% else %}
+                                    <i class="fas fa-times float-right"></i>
+                                    {% if app.user == task.user %}
+                                        <a href=""><i class="fas fa-pen float-right mr-2"></i></a>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                            <p><strong>{{ task.user.username }}</strong> <br> le, {{ task.createdAt | date('d/m/Y') }}
+                            </p>
+                        </div>
+                        <div class="card-body">
+                            <p><strong>{{ task.title }}</strong></p>
+                            <p class="text-justify"> {{ task.content }} </p>
+                        </div>
+                        <div class="card-footer  ">
+                            <a href="" class="btn btn-sm btn-primary mr-3">Réalisée</a>
+                            {% if app.user == task.user or app.user.roles == ["ROLE_ADMIN"] %}
+                                <a href="" class="btn btn-sm btn-danger mr-3">Supprimer</a>
+                            {% endif %}
+                            <button type="button" class="btn btn-sm btn-success" data-toggle="modal"
+                                    data-target="#newTask">
+                                Nouvelle tâche
+                            </button>
+                        </div>
+                    </div>
+                    {% include 'partials/modal-task-create.html.twig' %}
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}
