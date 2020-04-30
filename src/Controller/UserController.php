@@ -6,9 +6,7 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
-
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -26,7 +24,7 @@ class UserController extends AbstractController
      * @param UserPasswordEncoderInterface $encoder
      * @return Response
      */
-    public function index(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
+    public function userNew(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
     {
         $user = new User();
 
@@ -46,7 +44,7 @@ class UserController extends AbstractController
                 "L'utilisateur a été crée avec succès ! "
             );
 
-            return $this->redirectToRoute('homepage');
+            return $this->redirectToRoute('users_show');
         }
 
         return $this->render('user/create-user.html.twig',[

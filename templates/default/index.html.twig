@@ -4,7 +4,8 @@
 
 {% block body %}
     <div class="container">
-        <div class="jumbotron mt-5">
+
+        <div class="jumbotron" style="margin-top: 150px">
             <h1 class="display-4">ToDo-List </h1>
             <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias blanditiis eligendi
                 error facilis iure nihil numquam possimus voluptates. A autem cum dolor et eveniet, ex nobis placeat
@@ -15,7 +16,8 @@
                 <p>Vous pouvez consulter les tâches à faire, créer une tâche, modifier une tâche etc...</p>
                 <a class="btn btn-primary btn-lg" href="{{ path('task_list') }}" role="button">Toutes les tâches</a>
                 <a class="btn btn-info btn-lg" href="{{ path('task_user_list') }}" role="button">Mes tâches</a>
-                <a class="btn btn-warning btn-lg text-white" href="{{ path('task_done_list') }}" role="button">Tâches réalisées</a>
+                <a class="btn btn-warning btn-lg text-white" href="{{ path('task_done_list') }}" role="button">Tâches
+                    réalisées</a>
                 <a class="btn btn-success btn-lg" href="#" role="button">Créer une tâche</a>
             {% else %}
                 <p>Connectez-vous ! Des tâches vous attendent ! </p>
