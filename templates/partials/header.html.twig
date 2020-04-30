@@ -8,12 +8,12 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item float-right">
-                <a class="nav-link " href="#">Tasks</a>
+                <a class="nav-link " href="#">Tâches</a>
             </li>
 
             {% if app.user.roles is defined and app.user.roles == ["ROLE_ADMIN"] %}
                 <li class="nav-item float-right">
-                    <a class="nav-link " href="#">Administration</a>
+                    <a class="nav-link " href="{{ path('user_add') }}">Ajouter un Utilisateur</a>
                 </li>
             {% endif %}
 
