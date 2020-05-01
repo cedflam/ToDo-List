@@ -18,7 +18,9 @@
                 <a class="btn btn-info btn-lg" href="{{ path('task_user_list') }}" role="button">Mes tâches</a>
                 <a class="btn btn-warning btn-lg text-white" href="{{ path('task_done_list') }}" role="button">Tâches
                     réalisées</a>
-                <a class="btn btn-success btn-lg" href="#" role="button">Créer une tâche</a>
+                <button type="button" class="btn btn-lg btn-success" data-toggle="modal" data-target="#newTask">
+                    Créer une tâche
+                </button>
             {% else %}
                 <p>Connectez-vous ! Des tâches vous attendent ! </p>
             {% endif %}
@@ -60,6 +62,7 @@
                 </div>
             </div>
         </div>
+        {% include 'partials/modal-task-create.html.twig' %}
 
     </div>
 {% endblock %}

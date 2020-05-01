@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class TaskController extends AbstractController
 {
@@ -64,12 +65,19 @@ class TaskController extends AbstractController
      *
      * @param Task $task
      * @param EntityManagerInterface $manager
-     * @param Request $request
-     *
+     * @param SerializerInterface $serializer
+     * @return Response
      */
-    public function taskNew(Task $task, EntityManagerInterface $manager, Request $request)
+    public function taskNew(Task $task, EntityManagerInterface $manager, SerializerInterface $serializer)
     {
+        $task = new Task();
+        $data = $serializer->deserialize($task, Task::class, 'json');
+        $task->setUser($this->getUser());
 
+        $manager->persist($task);
+        $manager->flush();
+
+        return new Response('ok', Response::HTTP_OK);
     }
 
 
