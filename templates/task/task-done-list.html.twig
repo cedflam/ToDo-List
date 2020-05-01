@@ -5,52 +5,72 @@
 {% block body %}
 
     <div class="container">
-        <h2 class="text-center mt-2 mb-2"> Liste des tâches </h2>
+
+        <h2 class="text-center mt-2 mb-2 bg-dark text-white p-3"> Missions Accomplies !  <i class="fas fa-thumbs-up"></i> </h2>
 
         <div class="row">
             {% for task in tasks %}
                 <div class="col-4 mt-3">
-                    <div class="card">
+                    <div class="card bg-secondary text-white task{{ task.id }}">
                         <div class="card-header text-center">
-                            <div class="container-fluid">
-                                {% if task.isDone %}
-                                    <i class="fas fa-check float-right"></i>
-                                    {% if app.user == task.user %}
-                                        <a href=""><i class="fas fa-pen mr-2"></i></a>
-                                    {% endif %}
-                                {% else %}
-                                    <i class="fas fa-times float-right"></i>
-                                    {% if app.user == task.user %}
-                                        <a href=""><i class="fas fa-pen mr-2"></i></a>
-                                    {% endif %}
-                                {% endif %}
+                            <div class="container">
+                                    <i class="fas fa-check text-white float-right"></i>
+
+
                             </div>
-                            <p><strong>{{ task.user.name }}</strong> <br> le, {{ task.createdAt | date('d/m/Y') }}
-                            </p>
+                            <br>
+                            <div>
+                                <h4><strong>{{ task.user.name }}</strong></h4>
+                                le, {{ task.createdAt | date('d/m/Y') }}
+                            </div>
+
                         </div>
                         <div class="card-body">
                             <p><strong>{{ task.title }}</strong></p>
                             <p class="text-justify"> {{ task.content }} </p>
                         </div>
-                        <div class="card-footer  ">
-                            <a href="" class="btn btn-sm btn-primary mr-3">Réalisée</a>
-                            {% if app.user == task.user or app.user.roles == ["ROLE_ADMIN"] %}
-                                <a href="" class="btn btn-sm btn-danger mr-3">Supprimer</a>
-                            {% endif %}
-                            <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#newTask">
-                                Nouvelle tâche
+                        <div class="card-footer text-center ">
+                            <button type="button"
+                                    class="btn btn-sm btn-warning mr-3 text-white btnIsDone"
+                                    data-target="{{ task.id }}"
+                            >
+                                <i class="fas fa-undo"></i>
                             </button>
+
+                            <button type="button" class="btn btn-sm btn-success mr-3" data-toggle="modal" data-target="#newTask">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                            {% if app.user == task.user or app.user.roles == ["ROLE_ADMIN"] %}
+                                <button type="button"
+                                        class="btn btn-sm btn-danger mr-3 text-white btnDelete"
+                                        data-target="{{ task.id }}"
+                                >
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                                <button type="button"
+                                        class="btn btn-sm btn-primary text-white"
+                                        data-toggle="modal" data-target="#addTaskAdmin"
+                                >
+                                    <i class="fas fa-pen"></i>
+                                </button>
+                            {% endif %}
+
+
+
                         </div>
                     </div>
-                    {% include 'partials/modal-task-create.html.twig' %}
                 </div>
             {% endfor %}
 
         </div>
+        {% include 'partials/modal-task-create.html.twig' %}
+        {% include 'partials/modal-admin-task-edit.html.twig' %}
     </div>
 
 {% endblock %}
 
 {% block javascripts %}
-
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="{{ asset('js/isDone.js') }}"></script>
+    <script src="{{ asset('js/taskDelete.js') }}" ></script>
 {% endblock %}

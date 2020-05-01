@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TaskRepository")
@@ -13,6 +15,8 @@ class Task
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"tasksTrueList"})
+     *
      */
     private $id;
 
@@ -23,11 +27,23 @@ class Task
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *     min="5",
+     *     minMessage="Le titre doit faire au moins 5 caractères",
+     *     max="20",
+     *     maxMessage="Le titre ne peut dépasser 20 caractères"
+     * )
      */
     private $title;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *     min="5",
+     *     minMessage="Le titre doit faire au moins 5 caractères",
+     *     max="50",
+     *     maxMessage="Le titre ne peut dépasser 50 caractères"
+     * )
      */
     private $content;
 

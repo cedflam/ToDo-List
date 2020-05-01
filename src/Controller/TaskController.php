@@ -3,15 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\Task;
-use App\Form\TaskType;
 use App\Repository\TaskRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class TaskController extends AbstractController
 {
@@ -39,7 +40,7 @@ class TaskController extends AbstractController
     public function taskUser(TaskRepository $repo)
     {
         return $this->render('task/task-user-list.html.twig',[
-            'tasks'=> $repo->findBy(['user'=> $this->getUser()])
+            'tasks'=> $repo->findBy(['user'=> $this->getUser()], ['createdAt'=>'DESC'])
         ]);
 
     }
@@ -63,16 +64,49 @@ class TaskController extends AbstractController
      *
      * @Route("/task/new", name="task_new")
      *
-     * @param Task $task
      * @param EntityManagerInterface $manager
      * @param SerializerInterface $serializer
+     * @param Request $request
+     * @param ValidatorInterface $validator
      * @return Response
      */
-    public function taskNew(Task $task, EntityManagerInterface $manager, SerializerInterface $serializer)
+    public function taskNew(EntityManagerInterface $manager, SerializerInterface $serializer, Request $request, ValidatorInterface $validator)
     {
-        $task = new Task();
-        $data = $serializer->deserialize($task, Task::class, 'json');
-        $task->setUser($this->getUser());
+        $data = $request->getContent();
+        $task = $serializer->deserialize($data, Task::class, 'json');
+        $task->setUser($this->getUser())
+             ->setCreatedAt(new \DateTime())
+             ->setIsDone(false)
+        ;
+
+        $violations = $validator->validate($task);
+        if(count($violations) > 0){
+            $error = $serializer->serialize($violations, 'json');
+            return JsonResponse::fromJsonString($error, Response::HTTP_BAD_REQUEST);
+        }
+
+        $manager->persist($task);
+        $manager->flush();
+
+        return new Response('created', Response::HTTP_CREATED);
+    }
+
+    /**
+     * Permet de valider ou d'invaliser une tâche
+     *
+     * @Route("/task/isDone/{id}")
+     *
+     * @param Task $task
+     * @param EntityManagerInterface $manager
+     * @return Response
+     */
+    public function isDone(Task $task, EntityManagerInterface $manager)
+    {
+        if($task->getIsDone() === false){
+            $task->setIsDone(true);
+        }else{
+            $task->setIsDone(false);
+        }
 
         $manager->persist($task);
         $manager->flush();
@@ -80,5 +114,21 @@ class TaskController extends AbstractController
         return new Response('ok', Response::HTTP_OK);
     }
 
+    /**
+     * Permet de supprimer une tâche
+     *
+     * @Route("/task/delete/{id}")
+     *
+     * @param EntityManagerInterface $manager
+     * @param Task $task
+     * @return Response
+     */
+    public function taskDelete(EntityManagerInterface $manager, Task $task)
+    {
+        $manager->remove($task);
+        $manager->flush();
+
+        return new Response('deleted', Response::HTTP_NO_CONTENT);
+    }
 
 }
