@@ -39,6 +39,7 @@ const AddTask = () => {
             }
             toast.error("Une erreur s'est produite !")
         }
+        btnCloseCreate();
     }
 
     /**

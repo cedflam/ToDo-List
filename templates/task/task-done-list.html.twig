@@ -42,17 +42,20 @@
                             </button>
                             {% if app.user == task.user or app.user.roles == ["ROLE_ADMIN"] %}
                                 <button type="button"
-                                        class="btn btn-sm btn-danger mr-3 text-white btnDelete"
+                                        class="btn btn-sm btn-primary mr-3 text-white"
+                                        data-toggle="modal" data-target="#editTaskDone{{ task.id }}"
+                                        id="{{ task.id }}"
+
+                                >
+                                    <i class="fas fa-pen"></i>
+                                </button>
+                                <button type="button"
+                                        class="btn btn-sm btn-danger  text-white btnDelete"
                                         data-target="{{ task.id }}"
                                 >
                                     <i class="fas fa-trash"></i>
                                 </button>
-                                <button type="button"
-                                        class="btn btn-sm btn-primary text-white"
-                                        data-toggle="modal" data-target="#addTaskAdmin"
-                                >
-                                    <i class="fas fa-pen"></i>
-                                </button>
+
                             {% endif %}
 
 
@@ -64,7 +67,7 @@
 
         </div>
         {% include 'partials/modal-task-create.html.twig' %}
-        {% include 'partials/modal-admin-task-edit.html.twig' %}
+        {% include 'partials/modal-task-done-edit.html.twig' %}
     </div>
 
 {% endblock %}

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Task;
+use App\Form\TaskType;
 use App\Repository\TaskRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -89,6 +90,41 @@ class TaskController extends AbstractController
         $manager->flush();
 
         return new Response('created', Response::HTTP_CREATED);
+    }
+
+    /**
+     * Permet de modifier une tâche
+     *
+     * @Route("/task/edit/{id}", name="task_edit")
+     * @param ValidatorInterface $validator
+     * @param Task $task
+     * @param EntityManagerInterface $manager
+     * @param Request $request
+     * @param SerializerInterface $serializer
+     * @return Response
+     */
+    public function taskEdit(ValidatorInterface $validator, Task $task, EntityManagerInterface $manager, Request $request, SerializerInterface $serializer)
+    {
+        $data = $request->getContent();
+        $data = $serializer->decode($data, 'json');
+
+        $task->setCreatedAt(new \DateTime())
+             ->setTitle($data['title'])
+             ->setContent($data['content'])
+        ;
+
+        //Je gère les erreurs
+        $violations = $validator->validate($task);
+        if (count($violations) > 0) {
+            $error = $serializer->serialize($violations, 'json');
+            return JsonResponse::fromJsonString($error, Response::HTTP_BAD_REQUEST);
+        }
+
+        $manager->persist($task);
+        $manager->flush();
+
+        return new Response('modified', Response::HTTP_OK);
+
     }
 
     /**

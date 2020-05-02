@@ -30,7 +30,7 @@ class UserType extends AbstractType
             ->add('role', ChoiceType::class,[
                 'label'=> "Autorisations de l'utilisateur",
                 'choices'=> [
-                    'Selectionnez un role ...'=> "",
+                    'Selectionnez un rôle ...'=> "",
                     'Utilisateur'=> 'ROLE_USER',
                     'Administrateur' => 'ROLE_ADMIN'
 
@@ -39,7 +39,7 @@ class UserType extends AbstractType
             ->add('password', PasswordType::class, [
                 'label'=> "Mot de passe",
                 'attr'=> [
-                    'placeholder'=> "Saisir un mor de passe d'au moins 6 caractères ..."
+                    'placeholder'=> "Saisir un mot de passe d'au moins 6 caractères ..."
                 ]
             ])
 

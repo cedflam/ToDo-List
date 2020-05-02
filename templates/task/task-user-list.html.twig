@@ -4,62 +4,90 @@
 
 {% block body %}
 
-    <div class="container">
-        <h2 class="text-center mt-2 mb-2 bg-dark text-white p-3"> Mes tâches ... <i class="fas fa-tasks"></i> </h2>
+    <div class="container-fluid">
 
-
-        <div class="row">
-            {% for task in tasks %}
-                <div class="col-4 mt-3">
-                    <div class="card bg-secondary text-white task{{ task.id }}">
-                        <div class="card-header text-center">
-                            <div class="container-fluid">
-                                    <i class="fas fa-times float-right"></i>
-                                    {% if app.user == task.user %}
-                                        <a href=""><i class="fas fa-pen float-right mr-2"></i></a>
-                                    {% endif %}
-                            </div>
-                            <br>
-                            <div>
-                            <h4><strong>{{ task.user.name }}</strong></h4>
-                             le, {{ task.createdAt | date('d/m/Y') }}
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <p><strong>{{ task.title }}</strong></p>
-                            <p class="text-justify"> {{ task.content }} </p>
-                        </div>
-                        <div class="card-footer text-center ">
-                            <button type="button"
-                                    class="btn btn-sm btn-primary mr-3 text-white btnIsDone"
-                                    data-target="{{ task.id }}"
-                            ><i class="fas fa-check"></i>
-                            </button>
-
-                            <button type="button" class="btn btn-sm btn-success mr-3" data-toggle="modal"
-                                    data-target="#newTask">
-                               <i class="fas fa-plus"></i>
-                            </button>
-                            {% if app.user == task.user or app.user.roles == ["ROLE_ADMIN"] %}
-                                <button type="button"
-                                        class="btn btn-sm btn-danger  text-white btnDelete"
-                                        data-target="{{ task.id }}"
-                                ><i class="fas fa-trash"></i>
-                                </button>
-                            {% endif %}
-                        </div>
-                    </div>
-                    {% include 'partials/modal-task-create.html.twig' %}
+        <div class="col-2 float-left">
+            <div class="card bg-light">
+                <div class="card-header ">
+                    <h4>Tableau de bord <i class="fas fa-chart-line"></i> </h4>
                 </div>
-            {% endfor %}
+                <div class="card-body bg-secondary text-white ">
+                    <ul>
+                        <li>Mes tâches : </li>
+                        <li>Total tâches : </li>
+                        <li>Total accomplies : </li>
+                    </ul>
+                </div>
+                <div class="card-footer text-center">
+                    &copy;ToDo-List
+                </div>
+            </div>
+        </div>
 
+        <div class="container">
+            <h2 class="text-center mt-2 mb-2 bg-dark text-white p-3"> Mes tâches ... <i class="fas fa-tasks"></i></h2>
+            <div class="row">
+                {% for task in tasks %}
+                    <div class="col-4 mt-3">
+                        {% if not task.isDone %}
+                            <div class="card bg-secondary text-white task{{ task.id }}">
+
+                                <div class="card-header text-center">
+                                    <div class="container-fluid">
+                                        <i class="fas fa-times float-right"></i>
+
+                                    </div>
+                                    <br>
+                                    <div>
+                                        <h4><strong>{{ task.user.name }}</strong></h4>
+                                        le, {{ task.createdAt | date('d/m/Y') }}
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <p><strong>{{ task.title }}</strong></p>
+                                    <p class="text-justify"> {{ task.content }} </p>
+                                </div>
+                                <div class="card-footer text-center ">
+                                    <button type="button"
+                                            class="btn btn-sm btn-primary mr-3 text-white btnIsDone"
+                                            data-target="{{ task.id }}"
+                                    ><i class="fas fa-check"></i>
+                                    </button>
+
+                                    <button type="button" class="btn btn-sm btn-success mr-3" data-toggle="modal"
+                                            data-target="#newTask">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                    {% if app.user == task.user or app.user.roles == ["ROLE_ADMIN"] %}
+                                        <button type="button"
+                                                class="btn btn-sm btn-primary mr-3 text-white"
+                                                data-toggle="modal" data-target="#editTaskDone{{ task.id }}"
+                                                id="{{ task.id }}"
+
+                                        >
+                                            <i class="fas fa-pen"></i>
+                                        </button>
+                                        <button type="button"
+                                                class="btn btn-sm btn-danger  text-white btnDelete"
+                                                data-target="{{ task.id }}"
+                                        ><i class="fas fa-trash"></i>
+                                        </button>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% include 'partials/modal-task-create.html.twig' %}
+                        {% include 'partials/modal-task-user-edit.html.twig' %}
+                    </div>
+                {% endfor %}
+
+            </div>
         </div>
     </div>
-
 {% endblock %}
 
 {% block javascripts %}
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="{{ asset('js/taskDelete.js') }}"></script>
     <script src="{{ asset('js/isDone.js') }}"></script>
-    <script src="{{ asset('js/taskDelete.js') }}" ></script>
 {% endblock %}

@@ -15,34 +15,37 @@ class Task
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"tasksTrueList"})
+     * @Groups({"tasksTrueList", "taskEdit"})
      *
      */
     private $id;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"taskEdit"})
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"taskEdit"})
      * @Assert\Length(
      *     min="5",
      *     minMessage="Le titre doit faire au moins 5 caractères",
-     *     max="20",
-     *     maxMessage="Le titre ne peut dépasser 20 caractères"
+     *     max="50",
+     *     maxMessage="Le titre ne peut dépasser 50 caractères"
      * )
      */
     private $title;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"taskEdit"})
      * @Assert\Length(
      *     min="5",
-     *     minMessage="Le titre doit faire au moins 5 caractères",
-     *     max="50",
-     *     maxMessage="Le titre ne peut dépasser 50 caractères"
+     *     minMessage="La description doit faire au moins 5 caractères",
+     *     max="250",
+     *     maxMessage="La description ne peut dépasser 250 caractères"
      * )
      */
     private $content;
@@ -54,6 +57,7 @@ class Task
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="tasks")
+     * @Groups({"taskEdit"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
