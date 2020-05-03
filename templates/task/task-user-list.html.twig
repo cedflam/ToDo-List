@@ -1,27 +1,16 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    {{ encore_entry_link_tags('Dashboard') }}
+{% endblock %}
+
 {% block title %}Tâches{% endblock %}
 
 {% block body %}
 
     <div class="container-fluid">
-
-        <div class="col-2 float-left">
-            <div class="card bg-light">
-                <div class="card-header ">
-                    <h4>Tableau de bord <i class="fas fa-chart-line"></i> </h4>
-                </div>
-                <div class="card-body bg-secondary text-white ">
-                    <ul>
-                        <li>Mes tâches : </li>
-                        <li>Total tâches : </li>
-                        <li>Total accomplies : </li>
-                    </ul>
-                </div>
-                <div class="card-footer text-center">
-                    &copy;ToDo-List
-                </div>
-            </div>
+        <div id="dashboard">
+            <Dashboard/>
         </div>
 
         <div class="container">
@@ -34,7 +23,7 @@
 
                                 <div class="card-header text-center">
                                     <div class="container-fluid">
-                                        <i class="fas fa-times float-right"></i>
+                                        <i class="fas fa-times float-right"> </i>
 
                                     </div>
                                     <br>
@@ -51,12 +40,12 @@
                                     <button type="button"
                                             class="btn btn-sm btn-primary mr-3 text-white btnIsDone"
                                             data-target="{{ task.id }}"
-                                    ><i class="fas fa-check"></i>
+                                    ><i class="fas fa-check"> </i>
                                     </button>
 
                                     <button type="button" class="btn btn-sm btn-success mr-3" data-toggle="modal"
                                             data-target="#newTask">
-                                        <i class="fas fa-plus"></i>
+                                        <i class="fas fa-plus"> </i>
                                     </button>
                                     {% if app.user == task.user or app.user.roles == ["ROLE_ADMIN"] %}
                                         <button type="button"
@@ -65,12 +54,12 @@
                                                 id="{{ task.id }}"
 
                                         >
-                                            <i class="fas fa-pen"></i>
+                                            <i class="fas fa-pen"> </i>
                                         </button>
                                         <button type="button"
                                                 class="btn btn-sm btn-danger  text-white btnDelete"
                                                 data-target="{{ task.id }}"
-                                        ><i class="fas fa-trash"></i>
+                                        ><i class="fas fa-trash"> </i>
                                         </button>
                                     {% endif %}
                                 </div>
@@ -90,4 +79,6 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="{{ asset('js/taskDelete.js') }}"></script>
     <script src="{{ asset('js/isDone.js') }}"></script>
+    {{ encore_entry_script_tags('Dashboard') }}
+    <script src="{{ asset('js/toast.js') }}"></script>
 {% endblock %}

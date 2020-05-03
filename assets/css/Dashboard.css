@@ -1,0 +1,31 @@
+#board {
+    margin-left: 0;
+    margin-right: -10px;
+    margin-top: 250px;
+    animation-duration: 1s;
+    animation-name: boardShow
+}
+@keyframes boardShow {
+    from{
+        right: 16%;
+    }
+    to{
+        right: 0;
+    }
+}
+#board-hide{
+    margin-left: 0;
+    margin-right: -10px;
+    margin-top: 250px;
+    right: 16%;
+    animation-duration: 1s;
+    animation-name: boardHide;
+}
+@keyframes boardHide{
+    from{
+        right: 0;
+    }
+    to{
+        right: 16%;
+    }
+}

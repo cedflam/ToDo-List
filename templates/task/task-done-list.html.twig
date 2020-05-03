@@ -1,79 +1,92 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    {{ encore_entry_link_tags('Dashboard') }}
+{% endblock %}
+
 {% block title %}Tâches{% endblock %}
 
 {% block body %}
 
-    <div class="container">
+    <div class="container-fluid">
+        <div id="dashboard">
+            <Dashboard/>
+        </div>
 
-        <h2 class="text-center mt-2 mb-2 bg-dark text-white p-3"> Missions Accomplies !  <i class="fas fa-thumbs-up"></i> </h2>
 
-        <div class="row">
-            {% for task in tasks %}
-                <div class="col-4 mt-3">
-                    <div class="card bg-secondary text-white task{{ task.id }}">
-                        <div class="card-header text-center">
-                            <div class="container">
-                                    <i class="fas fa-check text-white float-right"></i>
+        <div class="container">
 
+            <h2 class="text-center mt-2 mb-2 bg-dark text-white p-3"> Missions Accomplies !
+                <i class="fas fa-thumbs-up"> </i></h2>
+
+            <div class="row">
+                {% for task in tasks %}
+                    <div class="col-4 mt-3">
+                        <div class="card bg-secondary text-white task{{ task.id }}">
+                            <div class="card-header text-center">
+                                <div class="container">
+                                    <i class="fas fa-check text-white float-right"> </i>
+
+
+                                </div>
+                                <br>
+                                <div>
+                                    <h4><strong>{{ task.user.name }}</strong></h4>
+                                    le, {{ task.createdAt | date('d/m/Y') }}
+                                </div>
 
                             </div>
-                            <br>
-                            <div>
-                                <h4><strong>{{ task.user.name }}</strong></h4>
-                                le, {{ task.createdAt | date('d/m/Y') }}
+                            <div class="card-body">
+                                <p><strong>{{ task.title }}</strong></p>
+                                <p class="text-justify"> {{ task.content }} </p>
                             </div>
-
-                        </div>
-                        <div class="card-body">
-                            <p><strong>{{ task.title }}</strong></p>
-                            <p class="text-justify"> {{ task.content }} </p>
-                        </div>
-                        <div class="card-footer text-center ">
-                            <button type="button"
-                                    class="btn btn-sm btn-warning mr-3 text-white btnIsDone"
-                                    data-target="{{ task.id }}"
-                            >
-                                <i class="fas fa-undo"></i>
-                            </button>
-
-                            <button type="button" class="btn btn-sm btn-success mr-3" data-toggle="modal" data-target="#newTask">
-                                <i class="fas fa-plus"></i>
-                            </button>
-                            {% if app.user == task.user or app.user.roles == ["ROLE_ADMIN"] %}
+                            <div class="card-footer text-center ">
                                 <button type="button"
-                                        class="btn btn-sm btn-primary mr-3 text-white"
-                                        data-toggle="modal" data-target="#editTaskDone{{ task.id }}"
-                                        id="{{ task.id }}"
-
-                                >
-                                    <i class="fas fa-pen"></i>
-                                </button>
-                                <button type="button"
-                                        class="btn btn-sm btn-danger  text-white btnDelete"
+                                        class="btn btn-sm btn-warning mr-3 text-white btnIsDone"
                                         data-target="{{ task.id }}"
                                 >
-                                    <i class="fas fa-trash"></i>
+                                    <i class="fas fa-undo"> </i>
                                 </button>
 
-                            {% endif %}
+                                <button type="button" class="btn btn-sm btn-success mr-3" data-toggle="modal"
+                                        data-target="#newTask">
+                                    <i class="fas fa-plus"> </i>
+                                </button>
+                                {% if app.user == task.user or app.user.roles == ["ROLE_ADMIN"] %}
+                                    <button type="button"
+                                            class="btn btn-sm btn-primary mr-3 text-white"
+                                            data-toggle="modal" data-target="#editTaskDone{{ task.id }}"
+                                            id="{{ task.id }}"
+
+                                    >
+                                        <i class="fas fa-pen"> </i>
+                                    </button>
+                                    <button type="button"
+                                            class="btn btn-sm btn-danger  text-white btnDelete"
+                                            data-target="{{ task.id }}"
+                                    >
+                                        <i class="fas fa-trash"> </i>
+                                    </button>
+
+                                {% endif %}
 
 
-
+                            </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
 
+            </div>
+            {% include 'partials/modal-task-create.html.twig' %}
+            {% include 'partials/modal-task-done-edit.html.twig' %}
         </div>
-        {% include 'partials/modal-task-create.html.twig' %}
-        {% include 'partials/modal-task-done-edit.html.twig' %}
     </div>
-
 {% endblock %}
 
 {% block javascripts %}
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="{{ asset('js/isDone.js') }}"></script>
-    <script src="{{ asset('js/taskDelete.js') }}" ></script>
+    <script src="{{ asset('js/taskDelete.js') }}"></script>
+    {{ encore_entry_script_tags('Dashboard') }}
+    <script src="{{ asset('js/toast.js') }}"></script>
 {% endblock %}

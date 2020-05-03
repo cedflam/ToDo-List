@@ -22,13 +22,13 @@ class Task
 
     /**
      * @ORM\Column(type="datetime")
-     * @Groups({"taskEdit"})
+     * @Groups({"dashboard"})
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"taskEdit"})
+     * @Groups({"dashboard"})
      * @Assert\Length(
      *     min="5",
      *     minMessage="Le titre doit faire au moins 5 caractères",
@@ -40,7 +40,7 @@ class Task
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"taskEdit"})
+     * @Groups({"dashboard"})
      * @Assert\Length(
      *     min="5",
      *     minMessage="La description doit faire au moins 5 caractères",
@@ -52,12 +52,13 @@ class Task
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
+     * @Groups({"dashboard"})
      */
     private $isDone;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="tasks")
-     * @Groups({"taskEdit"})
+     * @Groups({"dashboard"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;

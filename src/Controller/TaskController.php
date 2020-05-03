@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class TaskController extends AbstractController
 {
     /**
-     * Permet de récupérer toutesles tâches
+     * Permet de récupérer toutes les tâches actives
      *
      * @Route("/tasks", name="task_list")
      * @param TaskRepository $repo
@@ -128,7 +128,7 @@ class TaskController extends AbstractController
     }
 
     /**
-     * Permet de valider ou d'invaliser une tâche
+     * Permet de valider ou d'invalider une tâche
      *
      * @Route("/task/isDone/{id}")
      *
@@ -166,5 +166,44 @@ class TaskController extends AbstractController
 
         return new Response('deleted', Response::HTTP_NO_CONTENT);
     }
+
+    /**
+     * Permet de récupérer toutes les tâches pour le dashboard
+     *
+     * @Route("/dashboard/findAllTasks")
+     *
+     * @param TaskRepository $repo
+     * @param SerializerInterface $serializer
+     * @return Response
+     */
+    public function dashboardAllTasks(TaskRepository $repo, SerializerInterface $serializer)
+    {
+        $tasks = $repo->findAll();
+        $data = $serializer->serialize($tasks, 'json', [
+            'groups'=>"dashboard"
+        ]);
+
+        return new Response($data, Response::HTTP_OK);
+    }
+
+    /**
+     * Permet de récupérer toutes les tâches pour le dashboard
+     *
+     * @Route("/dashboard/findUserTasks")
+     *
+     * @param TaskRepository $repo
+     * @param SerializerInterface $serializer
+     * @return Response
+     */
+    public function dashboardFindUserTasks(TaskRepository $repo, SerializerInterface $serializer)
+    {
+        $tasks = $repo->findBy(['user'=>$this->getUser()]);
+        $data = $serializer->serialize($tasks, 'json', [
+            'groups'=>"dashboard"
+        ]);
+
+        return new Response($data, Response::HTTP_OK);
+    }
+
 
 }
