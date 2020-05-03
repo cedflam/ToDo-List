@@ -97,14 +97,18 @@ const Dashboard = () => {
                                 <th scope="row">Accomplies</th>
                                 <td className="text-right">{complete}</td>
                             </tr>
-                           <tr>
-                               <th> </th>
+                           <tr >
+                               <th> Rafraichir </th>
                                <td>
                                    <button onClick={handleUpdate}
-                                           className="btn btn-sm btn-primary mt-5 float-right">
+                                           className="btn btn-sm btn-primary  float-right">
                                        <i className="fas fa-sync float-right"> </i></button>
                                </td>
                            </tr>
+                            <tr>
+                                <th></th>
+                                <td></td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
