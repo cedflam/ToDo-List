@@ -6,6 +6,8 @@ use App\Entity\Task;
 use App\Form\TaskType;
 use App\Repository\TaskRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -21,6 +23,9 @@ class TaskController extends AbstractController
      * Permet de récupérer toutes les tâches actives
      *
      * @Route("/tasks", name="task_list")
+     * @Security("is_granted('ROLE_USER') or is_granted('ROLE_ADMIN')")
+     *
+     *
      * @param TaskRepository $repo
      * @return Response
      */
@@ -35,6 +40,8 @@ class TaskController extends AbstractController
      * Permet de récupérer la liste des tâches appartenant un à user
      *
      * @Route("/tasks/user", name="task_user_list")
+     * @Security("is_granted('ROLE_USER') or is_granted('ROLE_ADMIN')")
+     *
      * @param TaskRepository $repo
      * @return Response
      */
@@ -50,6 +57,8 @@ class TaskController extends AbstractController
      * Permet de récupérer les tâches terminées
      *
      * @Route("/tasks/done", name="task_done_list")
+     * @Security("is_granted('ROLE_USER') or is_granted('ROLE_ADMIN')")
+     *
      * @param TaskRepository $repo
      * @return Response
      */
@@ -63,7 +72,8 @@ class TaskController extends AbstractController
     /**
      * Permet de créer une nouvelle tâche
      *
-     * @Route("/task/new", name="task_new")
+     * @Route("/tasks/new", name="task_new")
+     * @Security("is_granted('ROLE_USER') or is_granted('ROLE_ADMIN')")
      *
      * @param EntityManagerInterface $manager
      * @param SerializerInterface $serializer
@@ -95,7 +105,9 @@ class TaskController extends AbstractController
     /**
      * Permet de modifier une tâche
      *
-     * @Route("/task/edit/{id}", name="task_edit")
+     * @Route("/tasks/edit/{id}", name="task_edit")
+     * @Security("is_granted('ROLE_USER') and user === task.user  or is_granted('ROLE_ADMIN')")
+     *
      * @param ValidatorInterface $validator
      * @param Task $task
      * @param EntityManagerInterface $manager
@@ -130,7 +142,8 @@ class TaskController extends AbstractController
     /**
      * Permet de valider ou d'invalider une tâche
      *
-     * @Route("/task/isDone/{id}")
+     * @Route("/tasks/isDone/{id}")
+     * @Security("is_granted('ROLE_USER') or is_granted('ROLE_ADMIN')")
      *
      * @param Task $task
      * @param EntityManagerInterface $manager
@@ -153,7 +166,8 @@ class TaskController extends AbstractController
     /**
      * Permet de supprimer une tâche
      *
-     * @Route("/task/delete/{id}")
+     * @Route("/tasks/delete/{id}")
+     * @Security("is_granted('ROLE_USER') and user === task.user  or is_granted('ROLE_ADMIN')")
      *
      * @param EntityManagerInterface $manager
      * @param Task $task
@@ -171,6 +185,7 @@ class TaskController extends AbstractController
      * Permet de récupérer toutes les tâches pour le dashboard
      *
      * @Route("/dashboard/findAllTasks")
+     * @Security("is_granted('ROLE_USER') or is_granted('ROLE_ADMIN')")
      *
      * @param TaskRepository $repo
      * @param SerializerInterface $serializer
@@ -190,6 +205,7 @@ class TaskController extends AbstractController
      * Permet de récupérer toutes les tâches pour le dashboard
      *
      * @Route("/dashboard/findUserTasks")
+     * @Security("is_granted('ROLE_USER') or is_granted('ROLE_ADMIN')")
      *
      * @param TaskRepository $repo
      * @param SerializerInterface $serializer

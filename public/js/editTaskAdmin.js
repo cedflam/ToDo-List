@@ -5,7 +5,7 @@ var btnEdit = $('.btnEdit');
 btnEdit.on('click', function (e) {
     e.preventDefault();
     const id = $(this).data('target');
-    const url = "/task/edit/" + id;
+    const url = "/tasks/edit/" + id;
 
     const title = $('.title' + id).val()
     const content = $('.content' + id).val()

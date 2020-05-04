@@ -1,8 +1,10 @@
 {% extends 'base.html.twig' %}
 
+
 {% block title %}HomePage{% endblock %}
 
 {% block body %}
+
     <div class="container">
 
         <div class="jumbotron" style="margin-top: 150px">
@@ -33,7 +35,8 @@
                 <div class="modal-content bg-light">
                     <div class="modal-header bg-secondary text-white ">
                         <h3 class="modal-title " id="exampleModalCenterTitle">Connexion</h3>
-                        <button type="button" class="close btnClose text-white" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close btnClose text-white" data-dismiss="modal"
+                                aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -65,6 +68,6 @@
         {% include 'partials/modal-task-create.html.twig' %}
 
     </div>
-{% endblock %}
 
+{% endblock %}
 

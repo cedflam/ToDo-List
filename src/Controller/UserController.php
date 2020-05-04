@@ -6,6 +6,8 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,6 +20,7 @@ class UserController extends AbstractController
      * Permet d'ajouter un utilisateur
      *
      * @Route("/user/create", name="user_create")
+     * @IsGranted("ROLE_ADMIN")
      *
      * @param Request $request
      * @param EntityManagerInterface $manager
@@ -54,7 +57,11 @@ class UserController extends AbstractController
     }
 
     /**
+     * Permet de voir la iste des utilisateurs
+     *
      * @Route("/user/show", name="users_show")
+     * @IsGranted("ROLE_ADMIN")
+     *
      * @param UserRepository $repo
      * @return Response
      */
@@ -69,6 +76,7 @@ class UserController extends AbstractController
      * Permet de modifier un utilisateur
      *
      * @Route("/user/edit/{id}", name="user_edit")
+     * @IsGranted("ROLE_ADMIN")
      *
      * @param UserPasswordEncoderInterface $encoder
      * @param User $user
@@ -106,7 +114,8 @@ class UserController extends AbstractController
     /**
      * Permet de supprimer un utilisateur
      *
-     * @Route("user/delete/{id}", name="user_delete")
+     * @Route("/user/delete/{id}", name="user_delete")
+     * @IsGranted("ROLE_ADMIN")
      *
      * @param User $user
      * @param EntityManagerInterface $manager

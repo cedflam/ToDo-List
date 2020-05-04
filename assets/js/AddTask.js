@@ -25,7 +25,7 @@ const AddTask = () => {
     const handleSubmit = async event => {
         event.preventDefault();
         try {
-            const response = await axios.post('/task/new', task);
+            const response = await axios.post('/tasks/new', task);
             setErrors({});
             toast.success("La tâche " + task.title + " a été ajoutée ! ");
             toast.info("Ajoutez une nouvelle tâche ou fermez la fenêtre ...")

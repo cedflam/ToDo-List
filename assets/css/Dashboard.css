@@ -29,3 +29,9 @@
         right: 15.6%;
     }
 }
+
+@media (max-width: 1200px) {
+    .board {
+        display: none;
+    }
+}

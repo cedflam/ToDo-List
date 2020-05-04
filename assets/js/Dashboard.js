@@ -75,7 +75,7 @@ const Dashboard = () => {
 
     return (
         <Fragment>
-           <div className="col-2 float-left" id={boardClass} onMouseEnter={handleBoard} onMouseLeave={handleBoard}>
+           <div className="col-2 float-left board" id={boardClass} onMouseEnter={handleBoard} onMouseLeave={handleBoard}>
 
                 <div className="card bg-light">
                     <div className="card-header ">

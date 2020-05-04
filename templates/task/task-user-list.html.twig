@@ -17,7 +17,7 @@
             <h2 class="text-center mt-2 mb-2 bg-dark text-white p-3"> Mes tâches ... <i class="fas fa-tasks"></i></h2>
             <div class="row">
                 {% for task in tasks %}
-                    <div class="col-4 mt-3">
+                    <div class="col-lg-4 col-md-6 col-sm-12  mt-3">
                         {% if not task.isDone %}
                             <div class="card bg-secondary text-white task{{ task.id }}">
 
@@ -38,7 +38,7 @@
                                 </div>
                                 <div class="card-footer text-center ">
                                     <button type="button"
-                                            class="btn btn-sm btn-primary mr-3 text-white btnIsDone"
+                                            class="btn btn-sm btn-info mr-3 text-white btnIsDone"
                                             data-target="{{ task.id }}"
                                     ><i class="fas fa-check"> </i>
                                     </button>

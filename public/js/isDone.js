@@ -3,7 +3,7 @@ const btn = $('.btnIsDone');
 btn.on('click', function () {
 
     const id = $(this).data('target');
-    const url = "/task/isDone/"+id;
+    const url = "/tasks/isDone/"+id;
 
     $('.task'+id).remove();
 

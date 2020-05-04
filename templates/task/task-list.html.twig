@@ -17,7 +17,7 @@
 
             <div class="row">
                 {% for task in tasks %}
-                    <div class="col-4 mt-3">
+                    <div class="col-lg-4 col-md-6 col-sm-12  mt-3">
                         <div class="card bg-secondary text-white task{{ task.id }}">
                             <div class="card-header text-center ">
                                 <div class="container-fluid">
@@ -36,7 +36,7 @@
                             </div>
                             <div class="card-footer text-center ">
                                 <button type="button"
-                                        class="btn btn-sm btn-primary mr-3 btnIsDone"
+                                        class="btn btn-sm btn-info mr-3 btnIsDone"
                                         data-target="{{ task.id }}">
                                     <i class="fas fa-check"></i>
                                 </button>
