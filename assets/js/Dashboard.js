@@ -26,12 +26,14 @@ const Dashboard = () => {
             .then(data => {
                 setUserTasks(data);
             })
+            .catch(error => toast.error("Une erreur s'est produite !"))
 
         axios.get('/dashboard/findAllTasks')
             .then(response => response.data)
             .then(data => {
                 setTasks(data);
             })
+            .catch(error => toast.error("Une erreur s'est produite !"))
     }, [update]);
 
     //J'alimente les variables avec les données reçues
@@ -68,11 +70,6 @@ const Dashboard = () => {
         }
     }
 
-    console.log(board)
-    console.log(boardClass)
-
-
-
     return (
         <Fragment>
            <div className="col-2 float-left board" id={boardClass} onMouseEnter={handleBoard} onMouseLeave={handleBoard}>
@@ -106,8 +103,8 @@ const Dashboard = () => {
                                </td>
                            </tr>
                             <tr>
-                                <th></th>
-                                <td></td>
+                                <th> </th>
+                                <td> </td>
                             </tr>
                             </tbody>
                         </table>
