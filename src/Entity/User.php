@@ -8,10 +8,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @UniqueEntity("email", message="Cet utilisateur existe déjà ! ")
+ * @UniqueEntity("email",  message="Ce nom d'utilisateur existe déjà ! ")
+ * @UniqueEntity("name", message="Cet username existe déjà !")
  */
 class User implements UserInterface
 {
@@ -25,12 +27,14 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\Email(message="L'email saisi est invalide ! ")
      */
     private $email;
 
 
     /**
      * @ORM\Column(name="role", type="string", length=255)
+     * @Assert\NotBlank(message="Le rôle doit être renseigné !")
      */
     protected $role;
 
@@ -39,6 +43,7 @@ class User implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Assert\Length(min="6", minMessage="Le mot de passe doit contenir au moins 6 caractères")
      */
     private $password;
 

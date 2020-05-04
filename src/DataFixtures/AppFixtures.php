@@ -14,22 +14,27 @@ class AppFixtures extends Fixture
 {
     /**
      * @var UserPasswordEncoderInterface
+     * @codeCoverageIgnore
      */
     private $encoder;
 
+    /**
+     * AppFixtures constructor.
+     * @param UserPasswordEncoderInterface $encoder
+     * @codeCoverageIgnore
+     */
     public function __construct(UserPasswordEncoderInterface $encoder)
     {
         $this->encoder = $encoder;
     }
 
+    /**
+     * @param ObjectManager $manager
+     * @codeCoverageIgnore
+     */
     public function load(ObjectManager $manager)
     {
-
         $faker = Factory::create('fr-FR');
-
-
-
-
 
         $user = new User();
         $user->setName('admin')
@@ -37,8 +42,6 @@ class AppFixtures extends Fixture
             ->setPassword($this->encoder->encodePassword($user, 'password'))
             ->setRole('ROLE_ADMIN')
         ;
-
-
 
         $manager->persist($user);
 

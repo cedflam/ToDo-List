@@ -11,9 +11,15 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method RoleUser|null findOneBy(array $criteria, array $orderBy = null)
  * @method RoleUser[]    findAll()
  * @method RoleUser[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @codeCoverageIgnore
  */
 class RoleUserRepository extends ServiceEntityRepository
 {
+    /**
+     * RoleUserRepository constructor.
+     * @param ManagerRegistry $registry
+     * @codeCoverageIgnore
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, RoleUser::class);

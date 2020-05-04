@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -25,6 +24,7 @@ class Task
     /**
      * @ORM\Column(type="datetime")
      * @Groups({"dashboard"})
+     * @Assert\NotBlank()
      */
     private $createdAt;
 

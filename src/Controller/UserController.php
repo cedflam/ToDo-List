@@ -57,7 +57,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * Permet de voir la iste des utilisateurs
+     * Permet de voir la liste des utilisateurs
      *
      * @Route("/user/show", name="users_show")
      * @IsGranted("ROLE_ADMIN")
