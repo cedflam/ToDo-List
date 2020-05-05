@@ -59,7 +59,7 @@ class Task
     private $isDone;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="tasks")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="tasks", fetch="EAGER")
      * @Groups({"dashboard"})
      * @ORM\JoinColumn(nullable=false)
      */

@@ -1,0 +1,16 @@
+tests:
+  'Métriques Symfony':
+    path: "/.*"
+    assertions:
+      - metrics.symfony.kernel.debug.count == 0 #En mode de production
+      - metrics.symfony.yaml.reads.count == 0 # Mise en cache des fichiers yaml
+
+  'The Composer autoloader class map should be dumped in production':
+    path:
+       - '/.*'
+    methods:
+       - ANY
+    command: '.*'
+    assertions:
+      - { label: null, expression: 'metrics.composer.autoload.find_file.count <= 50' }
+    exclude: {  }

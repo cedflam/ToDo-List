@@ -96,7 +96,10 @@ class TaskController extends AbstractController
         $manager->persist($task);
         $manager->flush();
 
-        return new Response('created', Response::HTTP_CREATED);
+        $response = new Response('created', Response::HTTP_CREATED);
+        $response->setSharedMaxAge(3600);
+
+        return $response;
     }
 
     /**
@@ -132,7 +135,10 @@ class TaskController extends AbstractController
         $manager->persist($task);
         $manager->flush();
 
-        return new Response('modified', Response::HTTP_OK);
+        $response = new Response('modified', Response::HTTP_OK);
+        $response->setSharedMaxAge(3600);
+
+        return $response;
 
     }
 
@@ -157,7 +163,10 @@ class TaskController extends AbstractController
         $manager->persist($task);
         $manager->flush();
 
-        return new Response('ok', Response::HTTP_OK);
+        $response = new Response('ok', Response::HTTP_OK);
+        $response->setSharedMaxAge(3600);
+
+        return $response;
     }
 
     /**
@@ -174,8 +183,9 @@ class TaskController extends AbstractController
     {
         $manager->remove($task);
         $manager->flush();
-
-        return new Response('deleted', Response::HTTP_OK);
+        $response = new Response('deleted', Response::HTTP_OK);
+        $response->setSharedMaxAge(3600);
+        return $response;
     }
 
     /**
@@ -195,7 +205,10 @@ class TaskController extends AbstractController
             'groups'=>"dashboard"
         ]);
 
-        return new Response($data, Response::HTTP_OK);
+        $response = new Response($data, Response::HTTP_OK);
+        $response->setSharedMaxAge(3600);
+
+        return $response;
     }
 
     /**
@@ -215,7 +228,10 @@ class TaskController extends AbstractController
             'groups'=>"dashboard"
         ]);
 
-        return new Response($data, Response::HTTP_OK);
+        $response = new Response($data, Response::HTTP_OK);
+        $response->setSharedMaxAge(3600);
+
+        return $response;
     }
 
 
