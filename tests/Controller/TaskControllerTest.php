@@ -98,7 +98,7 @@ class TaskControllerTest extends WebTestCase
         $client = $this->login();
         $client->request(
             'PUT',
-            '/tasks/edit/335',
+            '/tasks/edit/391',
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
@@ -116,7 +116,7 @@ class TaskControllerTest extends WebTestCase
         $client = $this->login();
         $client->request(
             'PUT',
-            '/tasks/edit/335',
+            '/tasks/edit/391',
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
@@ -134,7 +134,7 @@ class TaskControllerTest extends WebTestCase
         $client = $this->login();
         $client->request(
             'PUT',
-            '/tasks/isDone/335',
+            '/tasks/isDone/391',
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
@@ -148,21 +148,21 @@ class TaskControllerTest extends WebTestCase
     /**
      * Test de la suppression d'une task invalide
      */
-    /*public function testTaskDelete()
+    public function testTaskDelete()
     {
         $client = $this->login();
         $client->request(
             'PUT',
-            '/tasks/delete/353',
+            '/tasks/delete/295',
             [],
             [],
-            ['CONTENT_TYPE' => 'application/json'],
+            ['CONTENT_TYPE' => 'application/json']
 
         );
 
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
-    }*/
-    //TODO: Decommenter et changer l'id de suppression lors du test
+    }
+
 
     /**
      * Test de la création d'une task invalide
@@ -175,7 +175,7 @@ class TaskControllerTest extends WebTestCase
             '/dashboard/findAllTasks',
             [],
             [],
-            ['CONTENT_TYPE' => 'application/json'],
+            ['CONTENT_TYPE' => 'application/json']
 
         );
 
@@ -193,7 +193,7 @@ class TaskControllerTest extends WebTestCase
             '/dashboard/findUserTasks',
             [],
             [],
-            ['CONTENT_TYPE' => 'application/json'],
+            ['CONTENT_TYPE' => 'application/json']
 
         );
 

@@ -36,11 +36,18 @@ class AppFixtures extends Fixture
     {
         $faker = Factory::create('fr-FR');
 
-        $user = new User();
-        $user->setName('admin')
+        $admin = new User();
+        $admin->setName('admin')
             ->setEmail('admin@admin.fr')
-            ->setPassword($this->encoder->encodePassword($user, 'password'))
+            ->setPassword($this->encoder->encodePassword($admin, 'password'))
             ->setRole('ROLE_ADMIN')
+        ;
+
+        $user = new User();
+        $user->setName('user')
+            ->setEmail('user@user.fr')
+            ->setPassword($this->encoder->encodePassword($user, 'password'))
+            ->setRole('ROLE_USER')
         ;
 
         $manager->persist($user);

@@ -36,7 +36,7 @@ class UserControllerTest extends WebTestCase
             'user[password]' => 'password'
         ]);
         $client->submit($form);
-        $client->followRedirect();
+
 
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
     }
